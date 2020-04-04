@@ -5,6 +5,9 @@ class Lesson31 extends Song
     public function singSong($style, $names)
     {
         $style1 = new SongPatternStyle1();
+        $style2 = new SongPatternStyle2();
+        $style3 = new SongPatternStyle3();
+
         switch ($style) {
             case 1 :
                 foreach ($names as $name) {
@@ -14,19 +17,16 @@ class Lesson31 extends Song
             case 2 :
                 foreach ($names as $name) {
 
-                    if (strpos($name, "a") !== false) {
-                        $this->sing(strtoupper($name) . "! Yay " . $name . "!");
-                    } else {
-                        $this->sing("Hello " . $name . ", it's nice to meet you.");
-                    }
+                    $this->sing( $style2->sayLineFor($name) );
                 }
                 break;
             case 3 :
                 foreach ($names as $name) {
-                    $this->sing("Hello " . $name . ", it's nice to meet you.");
+                    $this->sing( $style3->sayLineFor($name)) ;
                 }
                 break;
         }
     }
+
 
 }
