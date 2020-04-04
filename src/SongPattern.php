@@ -6,10 +6,15 @@ class SongPattern
 
     protected $line;
     protected $lines;
+    protected $filters;
 
     public function __construct($defaultLine)
     {
         $this->line = $defaultLine;
+        $this->filters = [
+            'upper' => [Word::class, 'strToUpper'],
+            'minusOne' => [Number::class, 'minusOne']
+        ];
     }
 
     public static function create($defaultLine)
@@ -48,8 +53,9 @@ class SongPattern
         $line = preg_replace_callback(
             '/\{\{(\w+)\|?(\w*)\}\}/',
             function ($matches) use ($replacement) {
+
                 if (!empty($matches[2])) {
-                    $replacement = call_user_func(array($this, $matches[2]), $replacement);
+                    $replacement = call_user_func($this->getFilter($matches[2]), $replacement);
                 }
                 return $replacement;
             },
@@ -60,15 +66,12 @@ class SongPattern
     }
 
     /**
-     * @param $name
-     * @return string
+     * @param string $filterName
+     * @return array
      */
-    public function strToUpper($name)
+    public function getFilter($filterName)
     {
-        return strtoupper($name);
+        return $this->filters[$filterName];
     }
 
-    public function minusOne($number) {
-        return $number - 1;
-    }
 }

@@ -10,7 +10,7 @@ class Lesson2Variable extends Song
           '{{number|minusOne}} bottles of beer on the wall'
       );
     $this->singPattern(
-        $songPattern->repeatFor([100,99])
+        $songPattern->repeatFor(Number::from(100)->to(99)->stepBy([Number::class, 'minusOne']))
     );
   }
 }

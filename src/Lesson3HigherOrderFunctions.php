@@ -7,9 +7,9 @@ class Lesson3HigherOrderFunctions extends Song
       $songPattern = new SongPattern("{{number}}! ");
       $this->singPattern(
           $songPattern
-              ->repeatFor(Count::from(2)->to(8)->stepBy([$this,'getNextEven']))
+              ->repeatFor(Number::from(2)->to(8)->stepBy([$this,'getNextEven']))
               ->endsWith("Who do we appreciate?")
-              ->repeatFor(Count::from(17)->to(29)->stepBy([$this, 'getNextPrime']))
+              ->repeatFor(Number::from(17)->to(29)->stepBy([$this, 'getNextPrime']))
               ->endsWith("These are the primes, that we find fine!")
       );
   }

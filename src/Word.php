@@ -15,6 +15,15 @@ class Word
         };
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
+    public static function strToUpper($name)
+    {
+        return strtoupper($name);
+    }
+
     public function doesNotContain($letters)
     {
         return function($name) use ($letters) {

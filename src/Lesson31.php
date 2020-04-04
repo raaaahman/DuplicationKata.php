@@ -19,7 +19,7 @@ class Lesson31 extends Song
         $style1 = new SongPatternWithStyle($defaultLine);
         $style1->registerSpecialLine("Hip Hip Horray! For {{name}}")->when(Word::startsWith("L"));
         $style2 = new SongPatternWithStyle($defaultLine);
-        $style2->registerSpecialLine("{{name|strToUpper}}! Yay {{name}}!")->when(Word::doesNotContain('a'));
+        $style2->registerSpecialLine("{{name|upper}}! Yay {{name}}!")->when(Word::doesNotContain('a'));
         $style3 = new SongPattern($defaultLine);
 
         $styles = [$style1, $style2, $style3];
