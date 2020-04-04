@@ -4,14 +4,11 @@ class Lesson31 extends Song
 {
     public function singSong($style, $names)
     {
+        $style1 = new SongPatternStyle1();
         switch ($style) {
             case 1 :
                 foreach ($names as $name) {
-                    if (strpos($name, "L") === 0) {
-                        $this->sing("Hip Hip Horray! For " . $name);
-                    } else {
-                        $this->sing("Hello " . $name . ", it's nice to meet you.");
-                    }
+                    $this->sing( $style1->sayLineFor($name) );
                 }
                 break;
             case 2 :
@@ -31,4 +28,5 @@ class Lesson31 extends Song
                 break;
         }
     }
+
 }
