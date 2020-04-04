@@ -15,10 +15,11 @@ class Lesson31 extends Song
      */
     public function selectStyle($style)
     {
-        $defaultLine = "Hello %s, it's nice to meet you.";
+        $defaultLine = "Hello {{name}}, it's nice to meet you.";
         $style1 = new SongPatternWithStyle($defaultLine);
-        $style1->registerSpecialLine("Hip Hip Horray! For %s")->when(Word::startsWith("L"));
-        $style2 = new SongPatternStyle2();
+        $style1->registerSpecialLine("Hip Hip Horray! For {{name}}")->when(Word::startsWith("L"));
+        $style2 = new SongPatternWithStyle($defaultLine);
+        $style2->registerSpecialLine("{{name|strToUpper}}! Yay {{name}}!")->when(Word::doesNotContain('a'));
         $style3 = new SongPattern($defaultLine);
 
         $styles = [$style1, $style2, $style3];

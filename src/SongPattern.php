@@ -19,12 +19,7 @@ class SongPattern
 
     public function sayLineFor($word)
     {
-        if (is_array($word)) {
-            $sayIt = sprintf($this->line, ...$word);
-        } else {
-            $sayIt = sprintf($this->line, $word);
-        }
-        return $sayIt;
+        return $this->replaceVariables($this->line, $word);
     }
 
     public function repeatFor($words)
@@ -42,5 +37,38 @@ class SongPattern
 
     public function singIt() {
         return implode(PHP_EOL, $this->lines);
+    }
+
+    /**
+     * @param $replacement
+     * @return string
+     */
+    public function replaceVariables($line, $replacement)
+    {
+        $line = preg_replace_callback(
+            '/\{\{(\w+)\|?(\w*)\}\}/',
+            function ($matches) use ($replacement) {
+                if (!empty($matches[2])) {
+                    $replacement = call_user_func(array($this, $matches[2]), $replacement);
+                }
+                return $replacement;
+            },
+            $line
+        );
+
+        return $line;
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    public function strToUpper($name)
+    {
+        return strtoupper($name);
+    }
+
+    public function minusOne($number) {
+        return $number - 1;
     }
 }

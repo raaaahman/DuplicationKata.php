@@ -4,7 +4,7 @@
 class SongPatternWithStyle extends SongPattern
 {
 
-    private $specialLine = '';
+    protected $specialLine = '';
 
     private $condition = null;
 
@@ -28,7 +28,7 @@ class SongPatternWithStyle extends SongPattern
 
     public function saySpecialLineFor($word)
     {
-        return sprintf($this->specialLine, $word);
+        return $this->replaceVariables($this->specialLine, $word);
     }
 
     public function sayLineFor($word)

@@ -4,7 +4,7 @@ class Lesson3HigherOrderFunctions extends Song
 {
   public function singCheers()
   {
-      $songPattern = new SongPattern("%d! ");
+      $songPattern = new SongPattern("{{number}}! ");
       $this->singPattern(
           $songPattern
               ->repeatFor(Count::from(2)->to(8)->stepBy([$this,'getNextEven']))

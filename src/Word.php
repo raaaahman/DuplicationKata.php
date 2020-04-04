@@ -14,4 +14,11 @@ class Word
             return strpos($name, $letters) === $at;
         };
     }
+
+    public function doesNotContain($letters)
+    {
+        return function($name) use ($letters) {
+            return strpos($name, $letters) !== false;
+        };
+    }
 }
