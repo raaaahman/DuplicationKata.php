@@ -4,31 +4,29 @@ class Lesson31 extends Song
 {
     public function singSong($style, $names)
     {
-        switch ($style) {
-            case 1 :
-                foreach ($names as $name) {
-                    if (strpos($name, "L") === 0) {
-                        $this->sing("Hip Hip Horray! For " . $name);
-                    } else {
-                        $this->sing("Hello " . $name . ", it's nice to meet you.");
-                    }
-                }
-                break;
-            case 2 :
-                foreach ($names as $name) {
+        $selectedStyle = $this->selectStyle($style);
 
-                    if (strpos($name, "a") !== false) {
-                        $this->sing(strtoupper($name) . "! Yay " . $name . "!");
-                    } else {
-                        $this->sing("Hello " . $name . ", it's nice to meet you.");
-                    }
-                }
-                break;
-            case 3 :
-                foreach ($names as $name) {
-                    $this->sing("Hello " . $name . ", it's nice to meet you.");
-                }
-                break;
-        }
+        $this->singPattern($selectedStyle->repeatFor($names));
     }
+
+    /**
+     * @param $style
+     * @return mixed
+     */
+    public function selectStyle($style)
+    {
+        $defaultLine = "Hello {{name}}, it's nice to meet you.";
+        $style1 = new SongPatternWithStyle($defaultLine);
+        $style1->registerSpecialLine("Hip Hip Horray! For {{name}}")->when(Word::startsWith("L"));
+        $style2 = new SongPatternWithStyle($defaultLine);
+        $style2->registerSpecialLine("{{name|upper}}! Yay {{name}}!")->when(Word::doesNotContain('a'));
+        $style3 = new SongPattern($defaultLine);
+
+        $styles = [$style1, $style2, $style3];
+
+        $selectedStyle = $styles[$style - 1];
+        return $selectedStyle;
+    }
+
+
 }

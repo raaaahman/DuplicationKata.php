@@ -4,26 +4,16 @@ class Lesson3HigherOrderFunctions extends Song
 {
   public function singCheers()
   {
-    $number = 2;
-    $this->sing($number . "! ");
-    $number = $number + 2;
-    $this->sing($number . "! ");
-    $number = $number + 2;
-    $this->sing($number . "! ");
-    $number = $number + 2;
-    $this->sing($number . "! ");
-    $this->sing("Who do we appreciate?");
-    $number = 17;
-    $this->sing($number . "! ");
-    $number = $this->getNextPrime($number);
-    $this->sing($number . "! ");
-    $number = $this->getNextPrime($number);
-    $this->sing($number . "! ");
-    $number = $this->getNextPrime($number);
-    $this->sing($number . "! ");
-    $this->sing("These are the primes, that we find fine!");
+      $songPattern = new SongPattern("{{number}}! ");
+      $this->singPattern(
+          $songPattern
+              ->repeatFor(Number::from(2)->to(8)->stepBy([$this,'getNextEven']))
+              ->endsWith("Who do we appreciate?")
+              ->repeatFor(Number::from(17)->to(29)->stepBy([$this, 'getNextPrime']))
+              ->endsWith("These are the primes, that we find fine!")
+      );
   }
-  private function getNextPrime(int $number)
+  public function getNextPrime(int $number)
   {
     switch ($number)
     {
@@ -38,4 +28,14 @@ class Lesson3HigherOrderFunctions extends Song
     }
     return 0;
   }
+
+    /**
+     * @param $number
+     * @return int
+     */
+    public function getNextEven($number)
+    {
+        $number = $number + 2;
+        return $number;
+    }
 }
