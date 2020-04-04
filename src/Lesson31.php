@@ -10,20 +10,13 @@ class Lesson31 extends Song
 
         switch ($style) {
             case 1 :
-                foreach ($names as $name) {
-                    $this->sing( $style1->sayLineFor($name) );
-                }
+                $this->singPattern( $style1->repeatFor($names) );
                 break;
             case 2 :
-                foreach ($names as $name) {
-
-                    $this->sing( $style2->sayLineFor($name) );
-                }
+                $this->singPattern( $style2->repeatFor($names) );
                 break;
             case 3 :
-                foreach ($names as $name) {
-                    $this->sing( $style3->sayLineFor($name)) ;
-                }
+                $this->singPattern( $style3->repeatFor($names)) ;
                 break;
         }
     }
